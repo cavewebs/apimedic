@@ -51,7 +51,7 @@ use Embed\Embed;
 
 //all results 
     public function results_get() {
-    	$query = $this->db->query("SELECT * FROM results")->result();
+        $query = $this->db->query("SELECT * FROM results")->result();
         if($query){
             foreach ($query as $k) {
                 $pat = $this->api_model->user_details($k->pat_id);
@@ -59,7 +59,7 @@ use Embed\Embed;
                 $pat_gender = $pat->gender;
                 $pat_yob = $pat->yob;
 
-            $results[] =[
+            $data[] =[
                 
                 "issueID"=>$k->issue_id,
                 "issueName"=>$k->issue_name,
@@ -74,17 +74,23 @@ use Embed\Embed;
                 "date"=>date('Y/m/d',strtotime($k->date_created))
             ];
 
-                # code...
         }
+        $results = [
+                "status"=>TRUE,
+                "message"=>"retrieved list of all results",
+                "data"=>$data,
+            ];
             
         }
          else{
-            $results[] = [
+            $results = [
                 "status"=>FALSE,
-                "message"=>"Could not get list of Zones"
+                "message"=>"Could not get list of Zones",
+                "data"=>[
+                ]
             ];
         }
-    		$this->response($results, 200);
+            $this->response($results, 200);
 
     }
 
@@ -99,7 +105,7 @@ use Embed\Embed;
                 $pat_gender = $pat->gender;
                 $pat_yob = $pat->yob;
 
-            $results[] =[
+           $data[] =[
                 
                 "issueID"=>$k->issue_id,
                 "issueName"=>$k->issue_name,
@@ -114,14 +120,21 @@ use Embed\Embed;
                 "date"=>date('Y/m/d',strtotime($k->date_created))
             ];
 
-                # code...
+            
         }
+        $results = [
+                "status"=>TRUE,
+                "message"=>"retrieved list of valid results",
+                "data"=>$data,
+            ];
             
         }
          else{
-            $results[] = [
+            $results = [
                 "status"=>FALSE,
-                "message"=>"Could not get list of Zones"
+                "message"=>"Could not get list of Zones",
+                "data"=>[
+                ]
             ];
         }
             $this->response($results, 200);
@@ -139,7 +152,7 @@ use Embed\Embed;
                 $pat_gender = $pat->gender;
                 $pat_yob = $pat->yob;
 
-            $results[] =[
+            $data[] =[
                 
                 "issueID"=>$k->issue_id,
                 "issueName"=>$k->issue_name,
@@ -154,14 +167,21 @@ use Embed\Embed;
                 "date"=>date('Y/m/d',strtotime($k->date_created))
             ];
 
-                # code...
+           
         }
+         $results = [
+                "status"=>TRUE,
+                "message"=>"retrieved list of invalid results",
+                "data"=>$data,
+            ];
             
         }
          else{
-            $results[] = [
+            $results = [
                 "status"=>FALSE,
-                "message"=>"Could not get list of Zones"
+                "message"=>"Could not get list of Zones",
+                "data"=>[
+                ]
             ];
         }
             $this->response($results, 200);
